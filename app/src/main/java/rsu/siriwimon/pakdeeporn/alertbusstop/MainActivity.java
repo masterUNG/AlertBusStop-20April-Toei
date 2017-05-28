@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MyManage myManage;
     private LocationManager locationManager;
     private Criteria criteria;
-    private Double userLatADouble = 13.964987, userLngADouble = 100.585154 , aDouble = 0.0;
+    private Double userLatADouble = 13.964987, userLngADouble = 100.585154, aDouble = 0.0;
     private boolean aBoolean = true, notificationABoolean = true,
             check50Notification = true, destinationABoolean = true;
     private ImageView editImageView, deleteImageView;
     private int anInt; // ค่า index ของระยะ ที่ใช้ 0==> 50, 1==>500
-   
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_alert);
         builder.setTicker("Help Me Please Arrive ");
@@ -138,16 +137,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         MainActivity.this.getPackageName() +
                         "/" +
                         R.raw.bells);
-                Toast.makeText(getApplicationContext(),"500-1",Toast.LENGTH_SHORT).show();
-            } else{
-               uri = Uri.parse("android.resource://" +
-                      MainActivity.this.getPackageName() +
+                Toast.makeText(getApplicationContext(), "500-1", Toast.LENGTH_SHORT).show();
+            } else {
+                uri = Uri.parse("android.resource://" +
+                        MainActivity.this.getPackageName() +
                         "/" +
                         R.raw.past_des);
-                Toast.makeText(getApplicationContext(),"500-2",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "500-2", Toast.LENGTH_SHORT).show();
             }
 
-            } else {
+        } else {
             //BusStop, or 50m Destination
             uri = Uri.parse("file:" + strSound);
         }
@@ -160,12 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             notification.flags |= Notification.DEFAULT_LIGHTS
                     | Notification.FLAG_AUTO_CANCEL
                     | Notification.FLAG_ONLY_ALERT_ONCE;
-       } else {
+        } else {
 
             notification.flags |= Notification.FLAG_AUTO_CANCEL;
         }
-
-
 
 
         NotificationManager notificationManager = (NotificationManager)
@@ -251,11 +248,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 indexDistance[i] = Integer.parseInt(cursor.getString(5));
 
 
-
-
                 Log.d("28MayV1", "ระยะห่างจากจุดที่ Destination 50m (" + i + ") ==> " + distanceDoubles[i]);
                 Log.d("28MayV1", "boolean check50Notification ==> " + check50Notification);
-
 
 
                 //Check Distance
@@ -264,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Log.d("14MayV1", "อยู่ในวง 500");
                     Log.d("14MayV1", "ระยะ ห่าง Desination ==> " + distanceDoubles[i]);
-
 
 
                     // ดูว่าเป็นการเข้าครั้งแรกปะ
@@ -277,14 +270,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         myNotification(cursor.getString(2), check50Notification);
                         check50Notification = false;
                         anInt = indexDistance[i];
-                        Toast.makeText(getApplicationContext(),"50-1",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "50-1", Toast.LENGTH_SHORT).show();
 
                     }
 
                 } else if (distanceDoubles[i] <= (aDouble)) {
                     if (!check50Notification) {
                         myNotification(cursor.getString(2), check50Notification);
-                        Toast.makeText(getApplicationContext(),"50-2",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "50-2", Toast.LENGTH_SHORT).show();
                     }
 
                     check50Notification = true;
@@ -293,7 +286,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 cursor.moveToNext();
             }   //for
-
 
 
             cursor.close();
@@ -350,7 +342,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("14MayV1", "ระยะ ห่าง Desination ==> " + distanceDoubles[i]);
 
 
-
                     // ดูว่าเป็นการเข้าครั้งแรกปะ
                     //ค่า aDouble ค่าของ seriousDistance เพิ่มไป 10 เมตร
                     if (notificationABoolean) {
@@ -359,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         anInt = indexDistance[i];
                         myNotification(cursor.getString(2), notificationABoolean);
                         notificationABoolean = false;
-                        Toast.makeText(getApplicationContext(),"50-1",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "50-1", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -373,8 +364,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         myNotification(cursor.getString(2), true);
 
 
-
-                        Toast.makeText(getApplicationContext(),"50-2",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "50-2", Toast.LENGTH_SHORT).show();
                     }
 
                     notificationABoolean = true;
@@ -383,7 +373,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 cursor.moveToNext();
             }   //for
-
 
 
             cursor.close();
@@ -502,25 +491,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     final String strID = idStrings[i];
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setCancelable(false);
-                        builder.setIcon(R.mipmap.ic_notification2);
-                        builder.setTitle("โปรดยืนยัน");
-                        builder.setMessage("คุณต้องการเปลี่ยนปลายทางไปที่ " + nameStrings[i]);
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                editDestination(strID);
-                                dialogInterface.dismiss();
-                            }
-                        });
-                        builder.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setCancelable(false);
+                    builder.setIcon(R.mipmap.ic_notification2);
+                    builder.setTitle("โปรดยืนยัน");
+                    builder.setMessage("คุณต้องการเปลี่ยนปลายทางไปที่ " + nameStrings[i]);
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            editDestination(strID);
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
 
 
                 }   // onItem
